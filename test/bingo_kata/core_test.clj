@@ -5,9 +5,9 @@
 (defn call-number
   "gets a random number between 1 and 75 inclusive"
   []
-  1)
+  (+ 1 (rand-int 75)))
 
 (deftest bing-numbers-should
   (testing "Given I have a Bingo caller When I call a number Then the number is between 1 and 75 inclusive"
-    (let [num-called (call-number)]
-      (is (and (> num-called 0) (< num-called 76))))))
+    (dotimes [n 10000] (let [num-called (call-number)]
+      (is (and (> num-called 0) (< num-called 76)))))))
