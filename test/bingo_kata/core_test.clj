@@ -1,13 +1,18 @@
 (ns bingo-kata.core-test
   (:require [clojure.test :refer :all]
+            [clojure.set :refer :all]
             [bingo-kata.core :refer :all]))
+
+(defn create-bingo
+  "creates a bingo"
+  []
+  {:bingo-numbers (shuffle (set (range 1 76))) :call 0})
 
 (defn call-number
   "gets a random number between 1 and 75 inclusive"
-  []
-  (+ 1 (rand-int 75)))
+  [bingo]
+  (nth (:bingo-numbers bingo) (:call bingo)))
 
-(deftest bing-numbers-should
-  (testing "Given I have a Bingo caller When I call a number Then the number is between 1 and 75 inclusive"
-    (dotimes [_ 10000] (let [num-called (call-number)]
-      (is (and (> num-called 0) (< num-called 76)))))))
+(deftest bingo-numbers-should
+  (testing "Be a random sequence of numbers between 1 and 75 inclusive"
+    (is (= (count (intersection (:bingo-numbers (create-bingo)) (set (range 1 76)))) 75))))
