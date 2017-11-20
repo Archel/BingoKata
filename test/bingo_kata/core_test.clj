@@ -9,5 +9,5 @@
 
 (deftest bing-numbers-should
   (testing "Given I have a Bingo caller When I call a number Then the number is between 1 and 75 inclusive"
-    (dotimes [n 10000] (let [num-called (call-number)]
+    (dotimes [_ 10000] (let [num-called (call-number)]
       (is (and (> num-called 0) (< num-called 76)))))))
